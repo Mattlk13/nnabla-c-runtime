@@ -18,11 +18,11 @@
 
 # Implement status
 
-Total 62/187
+Total 62/211
 
 
 ## Neural Network Layer
-Count 8/16
+Count 8/17
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
@@ -35,6 +35,7 @@ Count 8/16
 |     DepthwiseConvolution     |     yes      |     yes      |     yes      |
 |        Deconvolution         |     yes      |     yes      |     yes      |
 |    DepthwiseDeconvolution    |      no      |      -       |      -       |
+|    DeformableConvolution     |      no      |      -       |      -       |
 | AdaptiveSeparableConvolution |      no      |      -       |      -       |
 |          MaxPooling          |     yes      |     yes      |     yes      |
 |        AveragePooling        |     yes      |     yes      |     yes      |
@@ -44,7 +45,7 @@ Count 8/16
 |            Embed             |      no      |      -       |      -       |
 
 ## Neural Network Activation Functions
-Count 11/21
+Count 11/22
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
@@ -61,6 +62,7 @@ Count 11/21
 |             CELU             |     yes      |     yes      |     yes      |
 |            PReLU             |     yes      |     yes      |     yes      |
 |             GELU             |      no      |      -       |      -       |
+|             Mish             |      no      |      -       |      -       |
 |            ReLU6             |      no      |      -       |      -       |
 |         HardSigmoid          |      no      |      -       |      -       |
 |           HardTanh           |      no      |      -       |      -       |
@@ -71,27 +73,38 @@ Count 11/21
 |             Sinc             |      no      |      -       |      -       |
 
 ## Normalization
-Count 2/6
+Count 2/14
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
 |   FusedBatchNormalization    |      no      |      -       |      -       |
 |      BatchNormalization      |     yes      |     yes      |     yes      |
+|      GroupNormalization      |      no      |      -       |      -       |
+|    InstanceNormalization     |      no      |      -       |      -       |
+|      LayerNormalization      |      no      |      -       |      -       |
+|      NormNormalization       |      no      |      -       |      -       |
 |    SyncBatchNormalization    |      no      |      -       |      -       |
+|     TensorNormalization      |      no      |      -       |      -       |
+|     WeightNormalization      |      no      |      -       |      -       |
+|    WeightStandardization     |      no      |      -       |      -       |
+|         SpectralNorm         |      no      |      -       |      -       |
 |       MeanSubtraction        |     yes      |     yes      |     yes      |
 |       ClipGradByValue        |      no      |      -       |      -       |
 |        ClipGradByNorm        |      no      |      -       |      -       |
 
 ## Reduction
-Count 1/7
+Count 1/10
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
 |             Sum              |     yes      |     yes      |     yes      |
+|            CumSum            |      no      |      -       |      -       |
 |             Mean             |      no      |      -       |      -       |
 |             Max              |      no      |      -       |      -       |
 |             Min              |      no      |      -       |      -       |
+|             Norm             |      no      |      -       |      -       |
 |             Prod             |      no      |      -       |      -       |
+|           CumProd            |      no      |      -       |      -       |
 |          ReduceSum           |      no      |      -       |      -       |
 |          ReduceMean          |      no      |      -       |      -       |
 
@@ -116,7 +129,7 @@ Count 11/14
 |          RPowScalar          |     yes      |     yes      |     yes      |
 
 ## Logical
-Count 5/29
+Count 5/30
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
@@ -134,6 +147,7 @@ Count 5/29
 |           Greater            |      no      |      -       |      -       |
 |          LessEqual           |      no      |      -       |      -       |
 |             Less             |      no      |      -       |      -       |
+|         SearchSorted         |      no      |      -       |      -       |
 |       LogicalAndScalar       |      no      |      -       |      -       |
 |       LogicalOrScalar        |      no      |      -       |      -       |
 |       LogicalXorScalar       |      no      |      -       |      -       |
@@ -179,7 +193,7 @@ Count 6/22
 |            ATanh             |      no      |      -       |      -       |
 
 ## Array Manipulation
-Count 11/21
+Count 11/27
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
@@ -199,20 +213,28 @@ Count 11/21
 |           Reshape            |     yes      |     yes      |     yes      |
 |          MatrixDiag          |     yes      |     yes      |     yes      |
 |        MatrixDiagPart        |     yes      |     yes      |     yes      |
-|           BatchInv           |      no      |      -       |      -       |
+|           Meshgrid           |      no      |      -       |      -       |
 |           BatchDet           |      no      |      -       |      -       |
+|           BatchInv           |      no      |      -       |      -       |
+|         BatchLogdet          |      no      |      -       |      -       |
 |            Assign            |      no      |      -       |      -       |
+|            Gather            |      no      |      -       |      -       |
 |           GatherNd           |      no      |      -       |      -       |
 |          ScatterNd           |      no      |      -       |      -       |
+|          ScatterAdd          |      no      |      -       |      -       |
+|      PackPaddedSequence      |      no      |      -       |      -       |
+|      PadPackedSequence       |      no      |      -       |      -       |
 
 ## Signal Processing
-Count 0/3
+Count 0/5
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
 |         Interpolate          |      no      |      -       |      -       |
 |             FFT              |      no      |      -       |      -       |
 |             IFFT             |      no      |      -       |      -       |
+|             STFT             |      no      |      -       |      -       |
+|            ISTFT             |      no      |      -       |      -       |
 
 ## Stochasticity
 Count 1/15
@@ -250,6 +272,15 @@ Count 0/9
 |    EpsilonInsensitiveLoss    |      no      |      -       |      -       |
 |        KLMultinomial         |      no      |      -       |      -       |
 
+## Geometric Neural Network Layers
+Count 0/3
+
+|           Function           |  Available   |    float     |   generic    |
+|------------------------------|--------------|--------------|--------------|
+|          AffineGrid          |      no      |      -       |      -       |
+|          WarpByGrid          |      no      |      -       |      -       |
+|          WarpByFlow          |      no      |      -       |      -       |
+
 ## Quantization Neural Network Layers
 Count 6/14
 
@@ -280,7 +311,7 @@ Count 0/3
 |       ConfusionMatrix        |      no      |      -       |      -       |
 
 ## Unsupported, Special Use
-Count 0/7
+Count 0/6
 
 |           Function           |  Available   |    float     |   generic    |
 |------------------------------|--------------|--------------|--------------|
@@ -289,6 +320,5 @@ Count 0/7
 |             Sink             |      no      |      -       |      -       |
 |        NmsDetection2d        |      no      |      -       |      -       |
 |      MaxPoolingBackward      |      no      |      -       |      -       |
-|          WarpByFlow          |      no      |      -       |      -       |
 |       PatchCorrelation       |      no      |      -       |      -       |
 

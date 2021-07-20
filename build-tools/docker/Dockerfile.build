@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
+
+ARG PIP_INS_OPTS
+ARG PYTHONWARNINGS
+ARG CURL_OPTS
+ARG WGET_OPTS
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -25,5 +30,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get -yqq clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install -U pip setuptools
-RUN pip install -U pyyaml mako autopep8
+RUN pip3 install ${PIP_INS_OPTS} -U pip setuptools
+RUN pip install ${PIP_INS_OPTS} -U pyyaml mako autopep8

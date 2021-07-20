@@ -37,7 +37,7 @@ typedef enum {
   RT_FUNCTION_ERROR_MALLOC,                 ///< Memory allocation error. (-998)
   RT_FUNCTION_ERROR_INVALID_NUM_OF_INPUTS,  ///< Invalid number of inputs.(-997)
   RT_FUNCTION_ERROR_INVALID_NUM_OF_OUTPUTS, ///< Invalid number of outputs.
-                                            ///(-996)
+                                            ///< (-996)
   RT_FUNCTION_ERROR_INVALID_SHAPE,          ///< Invalid shape. (-995)
   RT_FUNCTION_ERROR_NOERROR = 0             ///< No error. (0)
 } rt_function_error_t;
@@ -322,6 +322,32 @@ free_depthwise_deconvolution_local_context(rt_function_t *f);
 
 /// Exec DepthwiseDeconvolution
 rt_function_error_t exec_depthwise_deconvolution(rt_function_t *f);
+/// @}
+
+/// @defgroup DeformableConvolution DeformableConvolution
+/// @{
+
+/// Local context for DeformableConvolution
+typedef struct {
+  int32_t base_axis;        ///< int64
+  rt_list_t pad;            ///< Original type is [Shape]
+  rt_list_t stride;         ///< Original type is [Shape]
+  rt_list_t dilation;       ///< Original type is [Shape]
+  int32_t group;            ///< int64
+  int32_t deformable_group; ///< int64
+  uint8_t channel_last;     ///< bool
+  void *data;               ///< General purpose data area
+} deformable_convolution_local_context_t;
+
+/// Allocate DeformableConvolution local context
+rt_function_error_t
+allocate_deformable_convolution_local_context(rt_function_t *f);
+
+/// Free DeformableConvolution local context
+rt_function_error_t free_deformable_convolution_local_context(rt_function_t *f);
+
+/// Exec DeformableConvolution
+rt_function_error_t exec_deformable_convolution(rt_function_t *f);
 /// @}
 
 /// @defgroup AdaptiveSeparableConvolution AdaptiveSeparableConvolution
@@ -689,6 +715,19 @@ rt_function_error_t free_gelu_local_context(rt_function_t *f);
 rt_function_error_t exec_gelu(rt_function_t *f);
 /// @}
 
+/// @defgroup Mish Mish
+/// @{
+
+/// Allocate Mish local context
+rt_function_error_t allocate_mish_local_context(rt_function_t *f);
+
+/// Free Mish local context
+rt_function_error_t free_mish_local_context(rt_function_t *f);
+
+/// Exec Mish
+rt_function_error_t exec_mish(rt_function_t *f);
+/// @}
+
 /// @defgroup ReLU6 ReLU6
 /// @{
 
@@ -743,6 +782,12 @@ rt_function_error_t exec_log_sigmoid(rt_function_t *f);
 
 /// @defgroup SoftPlus SoftPlus
 /// @{
+
+/// Local context for SoftPlus
+typedef struct {
+  float beta; ///< double
+  void *data; ///< General purpose data area
+} softplus_local_context_t;
 
 /// Allocate SoftPlus local context
 rt_function_error_t allocate_softplus_local_context(rt_function_t *f);
@@ -839,6 +884,8 @@ typedef struct {
   float decay_rate;   ///< float
   float eps;          ///< float
   uint8_t batch_stat; ///< bool
+  uint8_t no_scale;   ///< bool
+  uint8_t no_bias;    ///< bool
   void *data;         ///< General purpose data area
 } batch_normalization_local_context_t;
 
@@ -851,6 +898,99 @@ rt_function_error_t free_batch_normalization_local_context(rt_function_t *f);
 
 /// Exec BatchNormalization
 rt_function_error_t exec_batch_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup GroupNormalization GroupNormalization
+/// @{
+
+/// Local context for GroupNormalization
+typedef struct {
+  int32_t num_groups;   ///< int64
+  int32_t channel_axis; ///< int64
+  rt_list_t batch_axis; ///< Original type is [repeated int64]
+  float eps;            ///< float
+  uint8_t no_scale;     ///< bool
+  uint8_t no_bias;      ///< bool
+  void *data;           ///< General purpose data area
+} group_normalization_local_context_t;
+
+/// Allocate GroupNormalization local context
+rt_function_error_t
+allocate_group_normalization_local_context(rt_function_t *f);
+
+/// Free GroupNormalization local context
+rt_function_error_t free_group_normalization_local_context(rt_function_t *f);
+
+/// Exec GroupNormalization
+rt_function_error_t exec_group_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup InstanceNormalization InstanceNormalization
+/// @{
+
+/// Local context for InstanceNormalization
+typedef struct {
+  int32_t channel_axis; ///< int64
+  rt_list_t batch_axis; ///< Original type is [repeated int64]
+  float eps;            ///< float
+  uint8_t no_scale;     ///< bool
+  uint8_t no_bias;      ///< bool
+  void *data;           ///< General purpose data area
+} instance_normalization_local_context_t;
+
+/// Allocate InstanceNormalization local context
+rt_function_error_t
+allocate_instance_normalization_local_context(rt_function_t *f);
+
+/// Free InstanceNormalization local context
+rt_function_error_t free_instance_normalization_local_context(rt_function_t *f);
+
+/// Exec InstanceNormalization
+rt_function_error_t exec_instance_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup LayerNormalization LayerNormalization
+/// @{
+
+/// Local context for LayerNormalization
+typedef struct {
+  rt_list_t batch_axis; ///< Original type is [repeated int64]
+  float eps;            ///< float
+  uint8_t no_scale;     ///< bool
+  uint8_t no_bias;      ///< bool
+  void *data;           ///< General purpose data area
+} layer_normalization_local_context_t;
+
+/// Allocate LayerNormalization local context
+rt_function_error_t
+allocate_layer_normalization_local_context(rt_function_t *f);
+
+/// Free LayerNormalization local context
+rt_function_error_t free_layer_normalization_local_context(rt_function_t *f);
+
+/// Exec LayerNormalization
+rt_function_error_t exec_layer_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup NormNormalization NormNormalization
+/// @{
+
+/// Local context for NormNormalization
+typedef struct {
+  float p;        ///< float
+  rt_list_t axes; ///< Original type is [repeated int64]
+  float eps;      ///< float
+  void *data;     ///< General purpose data area
+} norm_normalization_local_context_t;
+
+/// Allocate NormNormalization local context
+rt_function_error_t allocate_norm_normalization_local_context(rt_function_t *f);
+
+/// Free NormNormalization local context
+rt_function_error_t free_norm_normalization_local_context(rt_function_t *f);
+
+/// Exec NormNormalization
+rt_function_error_t exec_norm_normalization(rt_function_t *f);
 /// @}
 
 /// @defgroup SyncBatchNormalization SyncBatchNormalization
@@ -882,6 +1022,94 @@ free_sync_batch_normalization_local_context(rt_function_t *f);
 
 /// Exec SyncBatchNormalization
 rt_function_error_t exec_sync_batch_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup TensorNormalization TensorNormalization
+/// @{
+
+/// Local context for TensorNormalization
+typedef struct {
+  rt_list_t axes;   ///< Original type is [repeated int64]
+  float eps;        ///< float
+  uint8_t no_scale; ///< bool
+  uint8_t no_bias;  ///< bool
+  void *data;       ///< General purpose data area
+} tensor_normalization_local_context_t;
+
+/// Allocate TensorNormalization local context
+rt_function_error_t
+allocate_tensor_normalization_local_context(rt_function_t *f);
+
+/// Free TensorNormalization local context
+rt_function_error_t free_tensor_normalization_local_context(rt_function_t *f);
+
+/// Exec TensorNormalization
+rt_function_error_t exec_tensor_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup WeightNormalization WeightNormalization
+/// @{
+
+/// Local context for WeightNormalization
+typedef struct {
+  int32_t dim; ///< int64
+  float eps;   ///< float
+  void *data;  ///< General purpose data area
+} weight_normalization_local_context_t;
+
+/// Allocate WeightNormalization local context
+rt_function_error_t
+allocate_weight_normalization_local_context(rt_function_t *f);
+
+/// Free WeightNormalization local context
+rt_function_error_t free_weight_normalization_local_context(rt_function_t *f);
+
+/// Exec WeightNormalization
+rt_function_error_t exec_weight_normalization(rt_function_t *f);
+/// @}
+
+/// @defgroup WeightStandardization WeightStandardization
+/// @{
+
+/// Local context for WeightStandardization
+typedef struct {
+  int32_t channel_axis; ///< int64
+  float eps;            ///< float
+  void *data;           ///< General purpose data area
+} weight_standardization_local_context_t;
+
+/// Allocate WeightStandardization local context
+rt_function_error_t
+allocate_weight_standardization_local_context(rt_function_t *f);
+
+/// Free WeightStandardization local context
+rt_function_error_t free_weight_standardization_local_context(rt_function_t *f);
+
+/// Exec WeightStandardization
+rt_function_error_t exec_weight_standardization(rt_function_t *f);
+/// @}
+
+/// @defgroup SpectralNorm SpectralNorm
+/// @{
+
+/// Local context for SpectralNorm
+typedef struct {
+  int32_t dim;      ///< int64
+  int32_t itr;      ///< int64
+  float eps;        ///< float
+  uint8_t test;     ///< bool
+  uint8_t output_u; ///< bool
+  void *data;       ///< General purpose data area
+} spectral_norm_local_context_t;
+
+/// Allocate SpectralNorm local context
+rt_function_error_t allocate_spectral_norm_local_context(rt_function_t *f);
+
+/// Free SpectralNorm local context
+rt_function_error_t free_spectral_norm_local_context(rt_function_t *f);
+
+/// Exec SpectralNorm
+rt_function_error_t exec_spectral_norm(rt_function_t *f);
 /// @}
 
 /// @defgroup MeanSubtraction MeanSubtraction
@@ -963,6 +1191,27 @@ rt_function_error_t free_sum_local_context(rt_function_t *f);
 rt_function_error_t exec_sum(rt_function_t *f);
 /// @}
 
+/// @defgroup CumSum CumSum
+/// @{
+
+/// Local context for CumSum
+typedef struct {
+  int32_t axis;      ///< int64
+  uint8_t exclusive; ///< bool
+  uint8_t reverse;   ///< bool
+  void *data;        ///< General purpose data area
+} cumsum_local_context_t;
+
+/// Allocate CumSum local context
+rt_function_error_t allocate_cumsum_local_context(rt_function_t *f);
+
+/// Free CumSum local context
+rt_function_error_t free_cumsum_local_context(rt_function_t *f);
+
+/// Exec CumSum
+rt_function_error_t exec_cumsum(rt_function_t *f);
+/// @}
+
 /// @defgroup Mean Mean
 /// @{
 
@@ -1027,6 +1276,27 @@ rt_function_error_t free_min_local_context(rt_function_t *f);
 rt_function_error_t exec_min(rt_function_t *f);
 /// @}
 
+/// @defgroup Norm Norm
+/// @{
+
+/// Local context for Norm
+typedef struct {
+  float p;           ///< float
+  rt_list_t axes;    ///< Original type is [repeated int64]
+  uint8_t keep_dims; ///< bool
+  void *data;        ///< General purpose data area
+} norm_local_context_t;
+
+/// Allocate Norm local context
+rt_function_error_t allocate_norm_local_context(rt_function_t *f);
+
+/// Free Norm local context
+rt_function_error_t free_norm_local_context(rt_function_t *f);
+
+/// Exec Norm
+rt_function_error_t exec_norm(rt_function_t *f);
+/// @}
+
 /// @defgroup Prod Prod
 /// @{
 
@@ -1045,6 +1315,27 @@ rt_function_error_t free_prod_local_context(rt_function_t *f);
 
 /// Exec Prod
 rt_function_error_t exec_prod(rt_function_t *f);
+/// @}
+
+/// @defgroup CumProd CumProd
+/// @{
+
+/// Local context for CumProd
+typedef struct {
+  int32_t axis;      ///< int64
+  uint8_t exclusive; ///< bool
+  uint8_t reverse;   ///< bool
+  void *data;        ///< General purpose data area
+} cumprod_local_context_t;
+
+/// Allocate CumProd local context
+rt_function_error_t allocate_cumprod_local_context(rt_function_t *f);
+
+/// Free CumProd local context
+rt_function_error_t free_cumprod_local_context(rt_function_t *f);
+
+/// Exec CumProd
+rt_function_error_t exec_cumprod(rt_function_t *f);
 /// @}
 
 /// @defgroup ReduceSum ReduceSum
@@ -1114,6 +1405,12 @@ rt_function_error_t exec_add_n(rt_function_t *f);
 /// @defgroup BcAdd2 BcAdd2
 /// @{
 
+/// Local context for BcAdd2
+typedef struct {
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
+} bc_add2_local_context_t;
+
 /// Allocate BcAdd2 local context
 rt_function_error_t allocate_bc_add2_local_context(rt_function_t *f);
 
@@ -1127,6 +1424,12 @@ rt_function_error_t exec_bc_add2(rt_function_t *f);
 /// @defgroup Sub2 Sub2
 /// @{
 
+/// Local context for Sub2
+typedef struct {
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
+} sub2_local_context_t;
+
 /// Allocate Sub2 local context
 rt_function_error_t allocate_sub2_local_context(rt_function_t *f);
 
@@ -1139,6 +1442,12 @@ rt_function_error_t exec_sub2(rt_function_t *f);
 
 /// @defgroup Mul2 Mul2
 /// @{
+
+/// Local context for Mul2
+typedef struct {
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
+} mul2_local_context_t;
 
 /// Allocate Mul2 local context
 rt_function_error_t allocate_mul2_local_context(rt_function_t *f);
@@ -1166,6 +1475,12 @@ rt_function_error_t exec_mul_n(rt_function_t *f);
 /// @defgroup Div2 Div2
 /// @{
 
+/// Local context for Div2
+typedef struct {
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
+} div2_local_context_t;
+
 /// Allocate Div2 local context
 rt_function_error_t allocate_div2_local_context(rt_function_t *f);
 
@@ -1178,6 +1493,12 @@ rt_function_error_t exec_div2(rt_function_t *f);
 
 /// @defgroup Pow2 Pow2
 /// @{
+
+/// Local context for Pow2
+typedef struct {
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
+} pow2_local_context_t;
 
 /// Allocate Pow2 local context
 rt_function_error_t allocate_pow2_local_context(rt_function_t *f);
@@ -1194,8 +1515,9 @@ rt_function_error_t exec_pow2(rt_function_t *f);
 
 /// Local context for AddScalar
 typedef struct {
-  float val;  ///< double
-  void *data; ///< General purpose data area
+  float val;       ///< double
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
 } add_scalar_local_context_t;
 
 /// Allocate AddScalar local context
@@ -1213,8 +1535,9 @@ rt_function_error_t exec_add_scalar(rt_function_t *f);
 
 /// Local context for MulScalar
 typedef struct {
-  float val;  ///< double
-  void *data; ///< General purpose data area
+  float val;       ///< double
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
 } mul_scalar_local_context_t;
 
 /// Allocate MulScalar local context
@@ -1232,8 +1555,9 @@ rt_function_error_t exec_mul_scalar(rt_function_t *f);
 
 /// Local context for PowScalar
 typedef struct {
-  float val;  ///< double
-  void *data; ///< General purpose data area
+  float val;       ///< double
+  uint8_t inplace; ///< bool
+  void *data;      ///< General purpose data area
 } pow_scalar_local_context_t;
 
 /// Allocate PowScalar local context
@@ -1507,6 +1831,25 @@ rt_function_error_t free_less_local_context(rt_function_t *f);
 
 /// Exec Less
 rt_function_error_t exec_less(rt_function_t *f);
+/// @}
+
+/// @defgroup SearchSorted SearchSorted
+/// @{
+
+/// Local context for SearchSorted
+typedef struct {
+  uint8_t right; ///< bool
+  void *data;    ///< General purpose data area
+} searchsorted_local_context_t;
+
+/// Allocate SearchSorted local context
+rt_function_error_t allocate_searchsorted_local_context(rt_function_t *f);
+
+/// Free SearchSorted local context
+rt_function_error_t free_searchsorted_local_context(rt_function_t *f);
+
+/// Exec SearchSorted
+rt_function_error_t exec_searchsorted(rt_function_t *f);
 /// @}
 
 /// @defgroup LogicalAndScalar LogicalAndScalar
@@ -2176,6 +2519,7 @@ rt_function_error_t exec_slice(rt_function_t *f);
 typedef enum {
   PAD_MODE_CONSTANT,
   PAD_MODE_REFLECT,
+  PAD_MODE_REPEAT,
   END_OF_PAD_MODE
 } pad_mode_value_t;
 
@@ -2406,17 +2750,23 @@ rt_function_error_t free_matrix_diag_part_local_context(rt_function_t *f);
 rt_function_error_t exec_matrix_diag_part(rt_function_t *f);
 /// @}
 
-/// @defgroup BatchInv BatchInv
+/// @defgroup Meshgrid Meshgrid
 /// @{
 
-/// Allocate BatchInv local context
-rt_function_error_t allocate_batch_inv_local_context(rt_function_t *f);
+/// Local context for Meshgrid
+typedef struct {
+  uint8_t ij_indexing; ///< bool
+  void *data;          ///< General purpose data area
+} meshgrid_local_context_t;
 
-/// Free BatchInv local context
-rt_function_error_t free_batch_inv_local_context(rt_function_t *f);
+/// Allocate Meshgrid local context
+rt_function_error_t allocate_meshgrid_local_context(rt_function_t *f);
 
-/// Exec BatchInv
-rt_function_error_t exec_batch_inv(rt_function_t *f);
+/// Free Meshgrid local context
+rt_function_error_t free_meshgrid_local_context(rt_function_t *f);
+
+/// Exec Meshgrid
+rt_function_error_t exec_meshgrid(rt_function_t *f);
 /// @}
 
 /// @defgroup BatchDet BatchDet
@@ -2432,6 +2782,32 @@ rt_function_error_t free_batch_det_local_context(rt_function_t *f);
 rt_function_error_t exec_batch_det(rt_function_t *f);
 /// @}
 
+/// @defgroup BatchInv BatchInv
+/// @{
+
+/// Allocate BatchInv local context
+rt_function_error_t allocate_batch_inv_local_context(rt_function_t *f);
+
+/// Free BatchInv local context
+rt_function_error_t free_batch_inv_local_context(rt_function_t *f);
+
+/// Exec BatchInv
+rt_function_error_t exec_batch_inv(rt_function_t *f);
+/// @}
+
+/// @defgroup BatchLogdet BatchLogdet
+/// @{
+
+/// Allocate BatchLogdet local context
+rt_function_error_t allocate_batch_logdet_local_context(rt_function_t *f);
+
+/// Free BatchLogdet local context
+rt_function_error_t free_batch_logdet_local_context(rt_function_t *f);
+
+/// Exec BatchLogdet
+rt_function_error_t exec_batch_logdet(rt_function_t *f);
+/// @}
+
 /// @defgroup Assign Assign
 /// @{
 
@@ -2443,6 +2819,26 @@ rt_function_error_t free_assign_local_context(rt_function_t *f);
 
 /// Exec Assign
 rt_function_error_t exec_assign(rt_function_t *f);
+/// @}
+
+/// @defgroup Gather Gather
+/// @{
+
+/// Local context for Gather
+typedef struct {
+  int32_t axis;       ///< int64
+  int32_t batch_dims; ///< int64
+  void *data;         ///< General purpose data area
+} gather_local_context_t;
+
+/// Allocate Gather local context
+rt_function_error_t allocate_gather_local_context(rt_function_t *f);
+
+/// Free Gather local context
+rt_function_error_t free_gather_local_context(rt_function_t *f);
+
+/// Exec Gather
+rt_function_error_t exec_gather(rt_function_t *f);
 /// @}
 
 /// @defgroup GatherNd GatherNd
@@ -2475,6 +2871,67 @@ rt_function_error_t free_scatter_nd_local_context(rt_function_t *f);
 
 /// Exec ScatterNd
 rt_function_error_t exec_scatter_nd(rt_function_t *f);
+/// @}
+
+/// @defgroup ScatterAdd ScatterAdd
+/// @{
+
+/// Local context for ScatterAdd
+typedef struct {
+  int32_t axis; ///< int64
+  void *data;   ///< General purpose data area
+} scatter_add_local_context_t;
+
+/// Allocate ScatterAdd local context
+rt_function_error_t allocate_scatter_add_local_context(rt_function_t *f);
+
+/// Free ScatterAdd local context
+rt_function_error_t free_scatter_add_local_context(rt_function_t *f);
+
+/// Exec ScatterAdd
+rt_function_error_t exec_scatter_add(rt_function_t *f);
+/// @}
+
+/// @defgroup PackPaddedSequence PackPaddedSequence
+/// @{
+
+/// Local context for PackPaddedSequence
+typedef struct {
+  uint8_t batch_first; ///< bool
+  void *data;          ///< General purpose data area
+} pack_padded_sequence_local_context_t;
+
+/// Allocate PackPaddedSequence local context
+rt_function_error_t
+allocate_pack_padded_sequence_local_context(rt_function_t *f);
+
+/// Free PackPaddedSequence local context
+rt_function_error_t free_pack_padded_sequence_local_context(rt_function_t *f);
+
+/// Exec PackPaddedSequence
+rt_function_error_t exec_pack_padded_sequence(rt_function_t *f);
+/// @}
+
+/// @defgroup PadPackedSequence PadPackedSequence
+/// @{
+
+/// Local context for PadPackedSequence
+typedef struct {
+  uint8_t batch_first;  ///< bool
+  float padding_value;  ///< float
+  int32_t total_length; ///< int64
+  void *data;           ///< General purpose data area
+} pad_packed_sequence_local_context_t;
+
+/// Allocate PadPackedSequence local context
+rt_function_error_t
+allocate_pad_packed_sequence_local_context(rt_function_t *f);
+
+/// Free PadPackedSequence local context
+rt_function_error_t free_pad_packed_sequence_local_context(rt_function_t *f);
+
+/// Exec PadPackedSequence
+rt_function_error_t exec_pad_packed_sequence(rt_function_t *f);
 /// @}
 
 /// @}
@@ -2554,6 +3011,76 @@ rt_function_error_t free_ifft_local_context(rt_function_t *f);
 rt_function_error_t exec_ifft(rt_function_t *f);
 /// @}
 
+/// @defgroup STFT STFT
+/// @{
+
+/// Named values for STFT.window_type
+typedef enum {
+  STFT_WINDOW_TYPE_HANNING,
+  STFT_WINDOW_TYPE_HAMMING,
+  STFT_WINDOW_TYPE_RECTANGULAR,
+  END_OF_STFT_WINDOW_TYPE
+} stft_window_type_value_t;
+
+/// Named values for STFT.pad_mode
+typedef enum {
+  STFT_PAD_MODE_CONSTANT,
+  STFT_PAD_MODE_REFLECT,
+  END_OF_STFT_PAD_MODE
+} stft_pad_mode_value_t;
+
+/// Local context for STFT
+typedef struct {
+  int32_t window_size;                  ///< int64
+  int32_t stride;                       ///< int64
+  int32_t fft_size;                     ///< int64
+  stft_window_type_value_t window_type; ///< string
+  uint8_t center;                       ///< bool
+  stft_pad_mode_value_t pad_mode;       ///< string
+  void *data;                           ///< General purpose data area
+} stft_local_context_t;
+
+/// Allocate STFT local context
+rt_function_error_t allocate_stft_local_context(rt_function_t *f);
+
+/// Free STFT local context
+rt_function_error_t free_stft_local_context(rt_function_t *f);
+
+/// Exec STFT
+rt_function_error_t exec_stft(rt_function_t *f);
+/// @}
+
+/// @defgroup ISTFT ISTFT
+/// @{
+
+/// Named values for ISTFT.window_type
+typedef enum {
+  ISTFT_WINDOW_TYPE_HANNING,
+  ISTFT_WINDOW_TYPE_HAMMING,
+  ISTFT_WINDOW_TYPE_RECTANGULAR,
+  END_OF_ISTFT_WINDOW_TYPE
+} istft_window_type_value_t;
+
+/// Local context for ISTFT
+typedef struct {
+  int32_t window_size;                   ///< int64
+  int32_t stride;                        ///< int64
+  int32_t fft_size;                      ///< int64
+  istft_window_type_value_t window_type; ///< string
+  uint8_t center;                        ///< bool
+  void *data;                            ///< General purpose data area
+} istft_local_context_t;
+
+/// Allocate ISTFT local context
+rt_function_error_t allocate_istft_local_context(rt_function_t *f);
+
+/// Free ISTFT local context
+rt_function_error_t free_istft_local_context(rt_function_t *f);
+
+/// Exec ISTFT
+rt_function_error_t exec_istft(rt_function_t *f);
+/// @}
+
 /// @}
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2565,9 +3092,10 @@ rt_function_error_t exec_ifft(rt_function_t *f);
 
 /// Local context for Dropout
 typedef struct {
-  float p;      ///< double
-  int32_t seed; ///< int64
-  void *data;   ///< General purpose data area
+  float p;             ///< double
+  int32_t seed;        ///< int64
+  uint8_t output_mask; ///< bool
+  void *data;          ///< General purpose data area
 } dropout_local_context_t;
 
 /// Allocate Dropout local context
@@ -2825,6 +3353,7 @@ rt_function_error_t exec_random_flip(rt_function_t *f);
 typedef enum {
   RANDOM_SHIFT_BORDER_MODE_NEAREST,
   RANDOM_SHIFT_BORDER_MODE_REFLECT,
+  RANDOM_SHIFT_BORDER_MODE_CONSTANT,
   END_OF_RANDOM_SHIFT_BORDER_MODE
 } random_shift_border_mode_value_t;
 
@@ -2832,6 +3361,7 @@ typedef enum {
 typedef struct {
   rt_list_t shifts; ///< Original type is [repeated int64]
   random_shift_border_mode_value_t border_mode; ///< string
+  float constant_value;                         ///< float
   int32_t base_axis;                            ///< int64
   int32_t seed;                                 ///< int64
   void *data;                                   ///< General purpose data area
@@ -3065,6 +3595,82 @@ rt_function_error_t free_kl_multinomial_local_context(rt_function_t *f);
 
 /// Exec KLMultinomial
 rt_function_error_t exec_kl_multinomial(rt_function_t *f);
+/// @}
+
+/// @}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @defgroup GeometricNeuralNetworkLayers Geometric Neural Network Layers
+/// @{
+
+/// @defgroup AffineGrid AffineGrid
+/// @{
+
+/// Local context for AffineGrid
+typedef struct {
+  rt_list_t size;        ///< Original type is [repeated int64]
+  uint8_t align_corners; ///< bool
+  void *data;            ///< General purpose data area
+} affine_grid_local_context_t;
+
+/// Allocate AffineGrid local context
+rt_function_error_t allocate_affine_grid_local_context(rt_function_t *f);
+
+/// Free AffineGrid local context
+rt_function_error_t free_affine_grid_local_context(rt_function_t *f);
+
+/// Exec AffineGrid
+rt_function_error_t exec_affine_grid(rt_function_t *f);
+/// @}
+
+/// @defgroup WarpByGrid WarpByGrid
+/// @{
+
+/// Named values for WarpByGrid.mode
+typedef enum {
+  WARP_BY_GRID_MODE_LINEAR,
+  WARP_BY_GRID_MODE_NEAREST,
+  END_OF_WARP_BY_GRID_MODE
+} warp_by_grid_mode_value_t;
+
+/// Named values for WarpByGrid.padding_mode
+typedef enum {
+  WARP_BY_GRID_PADDING_MODE_ZERO,
+  WARP_BY_GRID_PADDING_MODE_REPEAT,
+  WARP_BY_GRID_PADDING_MODE_REFLECT,
+  END_OF_WARP_BY_GRID_PADDING_MODE
+} warp_by_grid_padding_mode_value_t;
+
+/// Local context for WarpByGrid
+typedef struct {
+  warp_by_grid_mode_value_t mode;                 ///< string
+  warp_by_grid_padding_mode_value_t padding_mode; ///< string
+  uint8_t align_corners;                          ///< bool
+  uint8_t channel_last;                           ///< bool
+  void *data;                                     ///< General purpose data area
+} warp_by_grid_local_context_t;
+
+/// Allocate WarpByGrid local context
+rt_function_error_t allocate_warp_by_grid_local_context(rt_function_t *f);
+
+/// Free WarpByGrid local context
+rt_function_error_t free_warp_by_grid_local_context(rt_function_t *f);
+
+/// Exec WarpByGrid
+rt_function_error_t exec_warp_by_grid(rt_function_t *f);
+/// @}
+
+/// @defgroup WarpByFlow WarpByFlow
+/// @{
+
+/// Allocate WarpByFlow local context
+rt_function_error_t allocate_warp_by_flow_local_context(rt_function_t *f);
+
+/// Free WarpByFlow local context
+rt_function_error_t free_warp_by_flow_local_context(rt_function_t *f);
+
+/// Exec WarpByFlow
+rt_function_error_t exec_warp_by_flow(rt_function_t *f);
 /// @}
 
 /// @}
@@ -3545,19 +4151,6 @@ rt_function_error_t free_max_pooling_backward_local_context(rt_function_t *f);
 
 /// Exec MaxPoolingBackward
 rt_function_error_t exec_max_pooling_backward(rt_function_t *f);
-/// @}
-
-/// @defgroup WarpByFlow WarpByFlow
-/// @{
-
-/// Allocate WarpByFlow local context
-rt_function_error_t allocate_warp_by_flow_local_context(rt_function_t *f);
-
-/// Free WarpByFlow local context
-rt_function_error_t free_warp_by_flow_local_context(rt_function_t *f);
-
-/// Exec WarpByFlow
-rt_function_error_t exec_warp_by_flow(rt_function_t *f);
 /// @}
 
 /// @defgroup PatchCorrelation PatchCorrelation

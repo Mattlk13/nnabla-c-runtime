@@ -1,4 +1,5 @@
-# Copyright (c) 2017 Sony Corporation. All Rights Reserved.
+# Copyright 2018,2019,2020,2021 Sony Corporation.
+# Copyright 2021 Sony Group Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -66,6 +67,14 @@ nnabla-c-runtime-auto-format:
 	@find $(NNABLA_C_RUNTIME_DIRECTORY) -type f -name "*.py" |xargs -n1 autopep8 -i
 	@find $(NNABLA_C_RUNTIME_DIRECTORY) -type f -name "*.[ch]" |xargs -n1 clang-format -i
 
+
+########################################################################################################################
+# Check copyright
+.PHONY: nnabla-c-runtime-check-copyright
+nnabla-c-runtime-check-copyright:
+	python3 $(NNABLA_DIRECTORY)/build-tools/code_formatter/copyright_checker.py --rootdir=$(NNABLA_C_RUNTIME_DIRECTORY)
+
+
 ########################################################################################################################
 # With NNabla
 
@@ -75,6 +84,10 @@ nnabla-c-runtime-update-function-info: nnabla-install
 	@nnabla_cli function_info -o $(NNABLA_C_RUNTIME_DIRECTORY)/build-tools/code-generator/functions.yaml
 	@sed -i -e "s/\(NNABLA_VERSION: \).*/\1$(NNABLA_VERSION)/" $(NNABLA_C_RUNTIME_DIRECTORY)/VERSION.txt
 	@sed -i -e "s/API_LEVEL:.*/$(API_LEVEL)/" $(NNABLA_C_RUNTIME_DIRECTORY)/VERSION.txt
+
+.PHONY: check-api_level
+check-api_level: nnabla-c-runtime-build nnabla-install
+	@bash ./build-tools/test/scripts/check_api_level.sh $(NNABLA_C_RUNTIME_DIRECTORY)
 
 .PHONY: nnabla-c-runtime-generate-function-test
 nnabla-c-runtime-generate-function-test: nnabla-install

@@ -100,6 +100,24 @@ rt_function_error_t exec_depthwise_deconvolution(rt_function_t *f) {
 }
 #endif /* CONFIG_DEPTHWISEDECONVOLUTION */
 
+// DeformableConvolution
+#ifdef CONFIG_DEFORMABLECONVOLUTION
+rt_function_error_t
+allocate_deformable_convolution_local_context(rt_function_t *f) {
+  f->exec_func = exec_deformable_convolution;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t
+free_deformable_convolution_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_deformable_convolution(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_DEFORMABLECONVOLUTION */
+
 // AdaptiveSeparableConvolution
 #ifdef CONFIG_ADAPTIVESEPARABLECONVOLUTION
 rt_function_error_t
@@ -187,6 +205,22 @@ rt_function_error_t exec_relu6(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 #endif /* CONFIG_RELU6 */
+
+// Mish
+#ifdef CONFIG_MISH
+rt_function_error_t allocate_mish_local_context(rt_function_t *f) {
+  f->exec_func = exec_mish;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_mish_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_mish(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_MISH */
 
 // HardSigmoid
 #ifdef CONFIG_HARDSIGMOID
@@ -337,6 +371,75 @@ rt_function_error_t exec_fused_batch_normalization(rt_function_t *f) {
 }
 #endif /* CONFIG_FUSEDBATCHNORMALIZATION */
 
+// GroupNormalization
+#ifdef CONFIG_GROUPNORMALIZATION
+rt_function_error_t
+allocate_group_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_group_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_group_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_group_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_GROUPNORMALIZATION */
+
+// InstanceNormalization
+#ifdef CONFIG_INSTANCENORMALIZATION
+rt_function_error_t
+allocate_instance_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_instance_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t
+free_instance_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_instance_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_INSTANCENORMALIZATION */
+
+// LayerNormalization
+#ifdef CONFIG_LAYERNORMALIZATION
+rt_function_error_t
+allocate_layer_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_layer_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_layer_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_layer_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_LAYERNORMALIZATION */
+
+// NormNormalization
+#ifdef CONFIG_NORMNORMALIZATION
+rt_function_error_t
+allocate_norm_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_norm_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_norm_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_norm_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_NORMNORMALIZATION */
+
 // SyncBatchNormalization
 #ifdef CONFIG_SYNCBATCHNORMALIZATION
 rt_function_error_t
@@ -353,7 +456,75 @@ free_sync_batch_normalization_local_context(rt_function_t *f) {
 rt_function_error_t exec_sync_batch_normalization(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
-#endif /* CONFIG_FUSEDBATCHNORMALIZATION */
+#endif /* CONFIG_SYNCBATCHNORMALIZATION */
+
+// TensorNormalization
+#ifdef CONFIG_TENSORNORMALIZATION
+rt_function_error_t
+allocate_tensor_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_tensor_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_tensor_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_tensor_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_TENSORNORMALIZATION */
+
+// WeightNormalization
+#ifdef CONFIG_WEIGHTNORMALIZATION
+rt_function_error_t
+allocate_weight_normalization_local_context(rt_function_t *f) {
+  f->exec_func = exec_weight_normalization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_weight_normalization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_weight_normalization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_WEIGHTNORMALIZATION */
+
+// WeightStandardization
+#ifdef CONFIG_WEIGHTSTANDARDIZATION
+rt_function_error_t
+allocate_weight_standardization_local_context(rt_function_t *f) {
+  f->exec_func = exec_weight_standardization;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t
+free_weight_standardization_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_weight_standardization(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_WEIGHTSTANDARDIZATION */
+
+// SpectralNorm
+#ifdef CONFIG_SPECTRALNORM
+rt_function_error_t allocate_spectral_norm_local_context(rt_function_t *f) {
+  f->exec_func = exec_spectral_norm;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_spectral_norm_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_spectral_norm(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_SPECTRALNORM */
 
 #ifdef CONFIG_CLIPGRADBYVALUE
 rt_function_error_t
@@ -389,6 +560,22 @@ rt_function_error_t exec_clip_grad_by_norm(rt_function_t *f) {
 ////////////////////////////////////////////////////////////////////////////////
 // Reduction
 ////////////////////////////////////////////////////////////////////////////////
+
+// CumSum
+#ifdef CONFIG_CUMSUM
+rt_function_error_t allocate_cumsum_local_context(rt_function_t *f) {
+  f->exec_func = exec_cumsum;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_cumsum_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_cumsum(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_CUMSUM */
 
 // Mean
 #ifdef CONFIG_MEAN
@@ -438,6 +625,22 @@ rt_function_error_t exec_min(rt_function_t *f) {
 }
 #endif /* CONFIG_MIN */
 
+// Norm
+#ifdef CONFIG_NORM
+rt_function_error_t allocate_norm_local_context(rt_function_t *f) {
+  f->exec_func = exec_norm;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_norm_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_norm(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_NORM */
+
 // Prod
 #ifdef CONFIG_PROD
 rt_function_error_t allocate_prod_local_context(rt_function_t *f) {
@@ -453,6 +656,22 @@ rt_function_error_t exec_prod(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 #endif /* CONFIG_PROD */
+
+// CumProd
+#ifdef CONFIG_CUMPROD
+rt_function_error_t allocate_cumprod_local_context(rt_function_t *f) {
+  f->exec_func = exec_cumprod;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_cumprod_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_cumprod(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_CUMPROD */
 
 // ReduceSum
 #ifdef CONFIG_REDUCESUM
@@ -685,6 +904,22 @@ rt_function_error_t exec_less(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 #endif /* CONFIG_LESS */
+
+// SearchSorted
+#ifdef CONFIG_SEARCHSORTED
+rt_function_error_t allocate_searchsorted_local_context(rt_function_t *f) {
+  f->exec_func = exec_searchsorted;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_searchsorted_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_searchsorted(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_SEARCHSORTED */
 
 // LogicalAndScalar
 #ifdef CONFIG_LOGICALANDSCALAR
@@ -1231,6 +1466,22 @@ rt_function_error_t exec_tile(rt_function_t *f) {
 }
 #endif /* CONFIG_TILE */
 
+// Gather
+#ifdef CONFIG_GATHER
+rt_function_error_t allocate_gather_local_context(rt_function_t *f) {
+  f->exec_func = exec_gather;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_gather_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_gather(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_GATHER */
+
 // Assign
 #ifdef CONFIG_ASSIGN
 rt_function_error_t allocate_assign_local_context(rt_function_t *f) {
@@ -1279,6 +1530,56 @@ rt_function_error_t exec_scatter_nd(rt_function_t *f) {
 }
 #endif /* CONFIG_SCATTERND */
 
+// ScatterAdd
+#ifdef CONFIG_SCATTERADD
+rt_function_error_t allocate_scatter_add_local_context(rt_function_t *f) {
+  f->exec_func = exec_scatter_add;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_scatter_add_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_scatter_add(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_SCATTERADD */
+
+// PackPaddedSequence
+#ifdef CONFIG_PACKPADDEDSEQUENCE
+rt_function_error_t
+allocate_pack_padded_sequence_local_context(rt_function_t *f) {
+  f->exec_func = exec_pack_padded_sequence;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_pack_padded_sequence_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_pack_padded_sequence(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_PACKPADDEDSEQUENCE */
+
+// PadPackedSequence
+#ifdef CONFIG_PADPACKEDSEQUENCE
+rt_function_error_t
+allocate_pad_packed_sequence_local_context(rt_function_t *f) {
+  f->exec_func = exec_pad_packed_sequence;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_pad_packed_sequence_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_pad_packed_sequence(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_PADPACKEDSEQUENCE */
+
 // OneHot
 #ifdef CONFIG_ONEHOT
 rt_function_error_t allocate_one_hot_local_context(rt_function_t *f) {
@@ -1311,21 +1612,21 @@ rt_function_error_t exec_sort(rt_function_t *f) {
 }
 #endif /* CONFIG_SORT */
 
-// BatchInv
-#ifdef CONFIG_BATCHINV
-rt_function_error_t allocate_batch_inv_local_context(rt_function_t *f) {
-  f->exec_func = exec_batch_inv;
+// Meshgrid
+#ifdef CONFIG_MESHGRID
+rt_function_error_t allocate_meshgrid_local_context(rt_function_t *f) {
+  f->exec_func = exec_meshgrid;
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 
-rt_function_error_t free_batch_inv_local_context(rt_function_t *f) {
+rt_function_error_t free_meshgrid_local_context(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 
-rt_function_error_t exec_batch_inv(rt_function_t *f) {
+rt_function_error_t exec_meshgrid(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
-#endif /* CONFIG_BATCHINV */
+#endif /* CONFIG_MESHGRID */
 
 // BatchDet
 #ifdef CONFIG_BATCHDET
@@ -1342,6 +1643,38 @@ rt_function_error_t exec_batch_det(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 #endif /* CONFIG_BATCHDET */
+
+// BatchInv
+#ifdef CONFIG_BATCHINV
+rt_function_error_t allocate_batch_inv_local_context(rt_function_t *f) {
+  f->exec_func = exec_batch_inv;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_batch_inv_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_batch_inv(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_BATCHINV */
+
+// BatchLogdet
+#ifdef CONFIG_BATCHLOGDET
+rt_function_error_t allocate_batch_logdet_local_context(rt_function_t *f) {
+  f->exec_func = exec_batch_logdet;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_batch_logdet_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_batch_logdet(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_BATCHLOGDET */
 
 ////////////////////////////////////////////////////////////////////////////////
 // Stochasticity
@@ -1728,6 +2061,58 @@ rt_function_error_t exec_kl_multinomial(rt_function_t *f) {
 #endif /* CONFIG_KLMULTINOMIAL */
 
 ////////////////////////////////////////////////////////////////////////////////
+// Geometric Neural Network Layers
+////////////////////////////////////////////////////////////////////////////////
+
+// AffineGrid
+#ifdef CONFIG_AFFINEGRID
+rt_function_error_t allocate_affine_grid_local_context(rt_function_t *f) {
+  f->exec_func = exec_affine_grid;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_affine_grid_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_affine_grid(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_AFFINEGRID */
+
+// WarpByGrid
+#ifdef CONFIG_WARPBYGRID
+rt_function_error_t allocate_warp_by_grid_local_context(rt_function_t *f) {
+  f->exec_func = exec_warp_by_grid;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_warp_by_grid_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_warp_by_grid(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_WARPBYGRID */
+
+// WarpByFlow
+#ifdef CONFIG_WARPBYFLOW
+rt_function_error_t allocate_warp_by_flow_local_context(rt_function_t *f) {
+  f->exec_func = exec_warp_by_flow;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_warp_by_flow_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_warp_by_flow(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_WARPBYFLOW */
+
+////////////////////////////////////////////////////////////////////////////////
 // Quantization Neural Network Layers
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1912,6 +2297,38 @@ rt_function_error_t exec_ifft(rt_function_t *f) {
 }
 #endif /* CONFIG_IFFT */
 
+// STFT
+#ifdef CONFIG_STFT
+rt_function_error_t allocate_stft_local_context(rt_function_t *f) {
+  f->exec_func = exec_stft;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_stft_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_stft(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_STFT */
+
+// ISTFT
+#ifdef CONFIG_ISTFT
+rt_function_error_t allocate_istft_local_context(rt_function_t *f) {
+  f->exec_func = exec_istft;
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t free_istft_local_context(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+
+rt_function_error_t exec_istft(rt_function_t *f) {
+  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
+}
+#endif /* CONFIG_ISTFT */
+
 ////////////////////////////////////////////////////////////////////////////////
 // Validation
 ////////////////////////////////////////////////////////////////////////////////
@@ -2050,22 +2467,6 @@ rt_function_error_t exec_max_pooling_backward(rt_function_t *f) {
   return RT_FUNCTION_ERROR_UNIMPLEMENTED;
 }
 #endif /* CONFIG_MAXPOOLINGBACKWARD */
-
-// WarpByFlow
-#ifdef CONFIG_WARPBYFLOW
-rt_function_error_t allocate_warp_by_flow_local_context(rt_function_t *f) {
-  f->exec_func = exec_warp_by_flow;
-  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
-}
-
-rt_function_error_t free_warp_by_flow_local_context(rt_function_t *f) {
-  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
-}
-
-rt_function_error_t exec_warp_by_flow(rt_function_t *f) {
-  return RT_FUNCTION_ERROR_UNIMPLEMENTED;
-}
-#endif /* CONFIG_WARPBYFLOW */
 
 // PatchCorrelation
 #ifdef CONFIG_PATCHCORRELATION
